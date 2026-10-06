@@ -1,0 +1,15 @@
+# SQL Server physical/generated files
+*.mdf
+*.ndf
+*.ldf
+*.bak
+*.trn
+
+# Temporary files
+*.tmp
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
