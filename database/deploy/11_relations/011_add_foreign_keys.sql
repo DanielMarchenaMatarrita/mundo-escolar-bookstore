@@ -1,0 +1,737 @@
+USE MundoEscolar;
+GO
+
+-- ============================================================================
+-- J. FOREIGN KEYS — NO ACTION / NO ACTION
+-- ============================================================================
+
+ALTER TABLE dbo.Persona WITH CHECK
+ADD CONSTRAINT FK_Persona_Tercero
+FOREIGN KEY (IdTercero)
+REFERENCES dbo.Tercero (IdTercero)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Organizacion WITH CHECK
+ADD CONSTRAINT FK_Organizacion_Tercero
+FOREIGN KEY (IdTercero)
+REFERENCES dbo.Tercero (IdTercero)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Cliente WITH CHECK
+ADD CONSTRAINT FK_Cliente_Tercero
+FOREIGN KEY (IdTercero)
+REFERENCES dbo.Tercero (IdTercero)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Proveedor WITH CHECK
+ADD CONSTRAINT FK_Proveedor_Tercero
+FOREIGN KEY (IdTercero)
+REFERENCES dbo.Tercero (IdTercero)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.ContactoTercero WITH CHECK
+ADD CONSTRAINT FK_ContactoTercero_Tercero
+FOREIGN KEY (IdTercero)
+REFERENCES dbo.Tercero (IdTercero)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.DireccionTercero WITH CHECK
+ADD CONSTRAINT FK_DireccionTercero_Tercero
+FOREIGN KEY (IdTercero)
+REFERENCES dbo.Tercero (IdTercero)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.CategoriaProducto WITH CHECK
+ADD CONSTRAINT FK_CategoriaProducto_Padre
+FOREIGN KEY (IdCategoriaPadre)
+REFERENCES dbo.CategoriaProducto (IdCategoria)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Producto WITH CHECK
+ADD CONSTRAINT FK_Producto_CategoriaProducto
+FOREIGN KEY (IdCategoria)
+REFERENCES dbo.CategoriaProducto (IdCategoria)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Producto WITH CHECK
+ADD CONSTRAINT FK_Producto_Marca
+FOREIGN KEY (IdMarca)
+REFERENCES dbo.Marca (IdMarca)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Libro WITH CHECK
+ADD CONSTRAINT FK_Libro_Producto
+FOREIGN KEY (IdProducto)
+REFERENCES dbo.Producto (IdProducto)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Libro WITH CHECK
+ADD CONSTRAINT FK_Libro_Editorial
+FOREIGN KEY (IdEditorial)
+REFERENCES dbo.Editorial (IdEditorial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LibroAutor WITH CHECK
+ADD CONSTRAINT FK_LibroAutor_Libro
+FOREIGN KEY (IdProducto)
+REFERENCES dbo.Libro (IdProducto)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LibroAutor WITH CHECK
+ADD CONSTRAINT FK_LibroAutor_Autor
+FOREIGN KEY (IdAutor)
+REFERENCES dbo.Autor (IdAutor)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.ItemComercial WITH CHECK
+ADD CONSTRAINT FK_ItemComercial_ConceptoComercial
+FOREIGN KEY (IdConceptoComercial)
+REFERENCES dbo.ConceptoComercial (IdConceptoComercial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.ItemComercial WITH CHECK
+ADD CONSTRAINT FK_ItemComercial_Producto
+FOREIGN KEY (IdProducto)
+REFERENCES dbo.Producto (IdProducto)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.ItemComercial WITH CHECK
+ADD CONSTRAINT FK_ItemComercial_Presentacion
+FOREIGN KEY (IdPresentacion)
+REFERENCES dbo.Presentacion (IdPresentacion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Servicio WITH CHECK
+ADD CONSTRAINT FK_Servicio_ConceptoComercial
+FOREIGN KEY (IdConceptoComercial)
+REFERENCES dbo.ConceptoComercial (IdConceptoComercial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.ProveedorItemComercial WITH CHECK
+ADD CONSTRAINT FK_ProveedorItem_Proveedor
+FOREIGN KEY (IdProveedor)
+REFERENCES dbo.Proveedor (IdTercero)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.ProveedorItemComercial WITH CHECK
+ADD CONSTRAINT FK_ProveedorItem_Item
+FOREIGN KEY (IdItemComercial)
+REFERENCES dbo.ItemComercial (IdConceptoComercial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Precio WITH CHECK
+ADD CONSTRAINT FK_Precio_ListaPrecio
+FOREIGN KEY (IdListaPrecio)
+REFERENCES dbo.ListaPrecio (IdListaPrecio)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Precio WITH CHECK
+ADD CONSTRAINT FK_Precio_ConceptoComercial
+FOREIGN KEY (IdConceptoComercial)
+REFERENCES dbo.ConceptoComercial (IdConceptoComercial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.EscalaPrecio WITH CHECK
+ADD CONSTRAINT FK_EscalaPrecio_Precio
+FOREIGN KEY (IdPrecio)
+REFERENCES dbo.Precio (IdPrecio)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.CampanaPromocional WITH CHECK
+ADD CONSTRAINT FK_Campana_Temporada
+FOREIGN KEY (IdTemporada)
+REFERENCES dbo.TemporadaComercial (IdTemporada)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Promocion WITH CHECK
+ADD CONSTRAINT FK_Promocion_Campana
+FOREIGN KEY (IdCampana)
+REFERENCES dbo.CampanaPromocional (IdCampana)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.PromocionConcepto WITH CHECK
+ADD CONSTRAINT FK_PromocionConcepto_Promocion
+FOREIGN KEY (IdPromocion)
+REFERENCES dbo.Promocion (IdPromocion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.PromocionConcepto WITH CHECK
+ADD CONSTRAINT FK_PromocionConcepto_Concepto
+FOREIGN KEY (IdConceptoComercial)
+REFERENCES dbo.ConceptoComercial (IdConceptoComercial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.PromocionCategoria WITH CHECK
+ADD CONSTRAINT FK_PromocionCategoria_Promocion
+FOREIGN KEY (IdPromocion)
+REFERENCES dbo.Promocion (IdPromocion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.PromocionCategoria WITH CHECK
+ADD CONSTRAINT FK_PromocionCategoria_Categoria
+FOREIGN KEY (IdCategoria)
+REFERENCES dbo.CategoriaProducto (IdCategoria)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Usuario WITH CHECK
+ADD CONSTRAINT FK_Usuario_Persona
+FOREIGN KEY (IdPersona)
+REFERENCES dbo.Persona (IdTercero)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.UsuarioRol WITH CHECK
+ADD CONSTRAINT FK_UsuarioRol_Usuario
+FOREIGN KEY (IdUsuario)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.UsuarioRol WITH CHECK
+ADD CONSTRAINT FK_UsuarioRol_Rol
+FOREIGN KEY (IdRol)
+REFERENCES dbo.Rol (IdRol)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.RolPermiso WITH CHECK
+ADD CONSTRAINT FK_RolPermiso_Rol
+FOREIGN KEY (IdRol)
+REFERENCES dbo.Rol (IdRol)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.RolPermiso WITH CHECK
+ADD CONSTRAINT FK_RolPermiso_Permiso
+FOREIGN KEY (IdPermiso)
+REFERENCES dbo.Permiso (IdPermiso)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.RegistroAuditoria WITH CHECK
+ADD CONSTRAINT FK_RegistroAuditoria_Usuario
+FOREIGN KEY (IdUsuario)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.UbicacionInventario WITH CHECK
+ADD CONSTRAINT FK_UbicacionInventario_Sucursal
+FOREIGN KEY (IdSucursal)
+REFERENCES dbo.Sucursal (IdSucursal)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.MovimientoInventario WITH CHECK
+ADD CONSTRAINT FK_MovimientoInventario_Usuario
+FOREIGN KEY (IdUsuario)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.DetalleMovimientoInventario WITH CHECK
+ADD CONSTRAINT FK_DetalleMovimiento_Movimiento
+FOREIGN KEY (IdMovimiento)
+REFERENCES dbo.MovimientoInventario (IdMovimiento)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.DetalleMovimientoInventario WITH CHECK
+ADD CONSTRAINT FK_DetalleMovimiento_Item
+FOREIGN KEY (IdItemComercial)
+REFERENCES dbo.ItemComercial (IdConceptoComercial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.DetalleMovimientoInventario WITH CHECK
+ADD CONSTRAINT FK_DetalleMovimiento_Ubicacion
+FOREIGN KEY (IdUbicacion)
+REFERENCES dbo.UbicacionInventario (IdUbicacion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Existencia WITH CHECK
+ADD CONSTRAINT FK_Existencia_Item
+FOREIGN KEY (IdItemComercial)
+REFERENCES dbo.ItemComercial (IdConceptoComercial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Existencia WITH CHECK
+ADD CONSTRAINT FK_Existencia_Ubicacion
+FOREIGN KEY (IdUbicacion)
+REFERENCES dbo.UbicacionInventario (IdUbicacion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.ConteoInventario WITH CHECK
+ADD CONSTRAINT FK_ConteoInventario_Ubicacion
+FOREIGN KEY (IdUbicacion)
+REFERENCES dbo.UbicacionInventario (IdUbicacion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.ConteoInventario WITH CHECK
+ADD CONSTRAINT FK_ConteoInventario_Usuario
+FOREIGN KEY (IdUsuario)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.ConteoInventario WITH CHECK
+ADD CONSTRAINT FK_ConteoInventario_Movimiento
+FOREIGN KEY (IdMovimientoAjuste)
+REFERENCES dbo.MovimientoInventario (IdMovimiento)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LineaConteo WITH CHECK
+ADD CONSTRAINT FK_LineaConteo_Conteo
+FOREIGN KEY (IdConteo)
+REFERENCES dbo.ConteoInventario (IdConteo)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LineaConteo WITH CHECK
+ADD CONSTRAINT FK_LineaConteo_Item
+FOREIGN KEY (IdItemComercial)
+REFERENCES dbo.ItemComercial (IdConceptoComercial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.ReglaReposicion WITH CHECK
+ADD CONSTRAINT FK_ReglaReposicion_Item
+FOREIGN KEY (IdItemComercial)
+REFERENCES dbo.ItemComercial (IdConceptoComercial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.ReglaReposicion WITH CHECK
+ADD CONSTRAINT FK_ReglaReposicion_Ubicacion
+FOREIGN KEY (IdUbicacion)
+REFERENCES dbo.UbicacionInventario (IdUbicacion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.OrdenCompra WITH CHECK
+ADD CONSTRAINT FK_OrdenCompra_Proveedor
+FOREIGN KEY (IdProveedor)
+REFERENCES dbo.Proveedor (IdTercero)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.OrdenCompra WITH CHECK
+ADD CONSTRAINT FK_OrdenCompra_Usuario
+FOREIGN KEY (IdUsuario)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LineaOrdenCompra WITH CHECK
+ADD CONSTRAINT FK_LineaOrdenCompra_Orden
+FOREIGN KEY (IdOrdenCompra)
+REFERENCES dbo.OrdenCompra (IdOrdenCompra)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LineaOrdenCompra WITH CHECK
+ADD CONSTRAINT FK_LineaOrdenCompra_Item
+FOREIGN KEY (IdItemComercial)
+REFERENCES dbo.ItemComercial (IdConceptoComercial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.RecepcionCompra WITH CHECK
+ADD CONSTRAINT FK_RecepcionCompra_Orden
+FOREIGN KEY (IdOrdenCompra)
+REFERENCES dbo.OrdenCompra (IdOrdenCompra)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.RecepcionCompra WITH CHECK
+ADD CONSTRAINT FK_RecepcionCompra_Ubicacion
+FOREIGN KEY (IdUbicacionDestino)
+REFERENCES dbo.UbicacionInventario (IdUbicacion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.RecepcionCompra WITH CHECK
+ADD CONSTRAINT FK_RecepcionCompra_Usuario
+FOREIGN KEY (IdUsuario)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.RecepcionCompra WITH CHECK
+ADD CONSTRAINT FK_RecepcionCompra_Movimiento
+FOREIGN KEY (IdMovimientoInventario)
+REFERENCES dbo.MovimientoInventario (IdMovimiento)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LineaRecepcion WITH CHECK
+ADD CONSTRAINT FK_LineaRecepcion_Recepcion
+FOREIGN KEY (IdRecepcion)
+REFERENCES dbo.RecepcionCompra (IdRecepcion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LineaRecepcion WITH CHECK
+ADD CONSTRAINT FK_LineaRecepcion_LineaOrden
+FOREIGN KEY (IdLineaOrden)
+REFERENCES dbo.LineaOrdenCompra (IdLineaOrden)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Caja WITH CHECK
+ADD CONSTRAINT FK_Caja_Sucursal
+FOREIGN KEY (IdSucursal)
+REFERENCES dbo.Sucursal (IdSucursal)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.SesionCaja WITH CHECK
+ADD CONSTRAINT FK_SesionCaja_Caja
+FOREIGN KEY (IdCaja)
+REFERENCES dbo.Caja (IdCaja)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.SesionCaja WITH CHECK
+ADD CONSTRAINT FK_SesionCaja_UsuarioApertura
+FOREIGN KEY (IdUsuarioApertura)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.SesionCaja WITH CHECK
+ADD CONSTRAINT FK_SesionCaja_UsuarioCierre
+FOREIGN KEY (IdUsuarioCierre)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Venta WITH CHECK
+ADD CONSTRAINT FK_Venta_Cliente
+FOREIGN KEY (IdCliente)
+REFERENCES dbo.Cliente (IdTercero)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Venta WITH CHECK
+ADD CONSTRAINT FK_Venta_Usuario
+FOREIGN KEY (IdUsuario)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Venta WITH CHECK
+ADD CONSTRAINT FK_Venta_Sucursal
+FOREIGN KEY (IdSucursal)
+REFERENCES dbo.Sucursal (IdSucursal)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Venta WITH CHECK
+ADD CONSTRAINT FK_Venta_SesionCaja
+FOREIGN KEY (IdSesionCaja)
+REFERENCES dbo.SesionCaja (IdSesionCaja)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Venta WITH CHECK
+ADD CONSTRAINT FK_Venta_MovimientoInventario
+FOREIGN KEY (IdMovimientoInventario)
+REFERENCES dbo.MovimientoInventario (IdMovimiento)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LineaVenta WITH CHECK
+ADD CONSTRAINT FK_LineaVenta_Venta
+FOREIGN KEY (IdVenta)
+REFERENCES dbo.Venta (IdVenta)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LineaVenta WITH CHECK
+ADD CONSTRAINT FK_LineaVenta_Concepto
+FOREIGN KEY (IdConceptoComercial)
+REFERENCES dbo.ConceptoComercial (IdConceptoComercial)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.PromocionAplicada WITH CHECK
+ADD CONSTRAINT FK_PromocionAplicada_LineaVenta
+FOREIGN KEY (IdLineaVenta)
+REFERENCES dbo.LineaVenta (IdLineaVenta)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.PromocionAplicada WITH CHECK
+ADD CONSTRAINT FK_PromocionAplicada_Promocion
+FOREIGN KEY (IdPromocion)
+REFERENCES dbo.Promocion (IdPromocion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.TrabajoServicio WITH CHECK
+ADD CONSTRAINT FK_TrabajoServicio_LineaVenta
+FOREIGN KEY (IdLineaVenta)
+REFERENCES dbo.LineaVenta (IdLineaVenta)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Factura WITH CHECK
+ADD CONSTRAINT FK_Factura_Venta
+FOREIGN KEY (IdVenta)
+REFERENCES dbo.Venta (IdVenta)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.CuentaPorCobrar WITH CHECK
+ADD CONSTRAINT FK_CuentaPorCobrar_Factura
+FOREIGN KEY (IdFactura)
+REFERENCES dbo.Factura (IdFactura)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Pago WITH CHECK
+ADD CONSTRAINT FK_Pago_MetodoPago
+FOREIGN KEY (IdMetodoPago)
+REFERENCES dbo.MetodoPago (IdMetodoPago)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Pago WITH CHECK
+ADD CONSTRAINT FK_Pago_Usuario
+FOREIGN KEY (IdUsuario)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.AplicacionPago WITH CHECK
+ADD CONSTRAINT FK_AplicacionPago_Pago
+FOREIGN KEY (IdPago)
+REFERENCES dbo.Pago (IdPago)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.AplicacionPago WITH CHECK
+ADD CONSTRAINT FK_AplicacionPago_Cuenta
+FOREIGN KEY (IdCuentaCobrar)
+REFERENCES dbo.CuentaPorCobrar (IdCuentaCobrar)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.DevolucionVenta WITH CHECK
+ADD CONSTRAINT FK_DevolucionVenta_Venta
+FOREIGN KEY (IdVenta)
+REFERENCES dbo.Venta (IdVenta)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.DevolucionVenta WITH CHECK
+ADD CONSTRAINT FK_DevolucionVenta_Usuario
+FOREIGN KEY (IdUsuario)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.DevolucionVenta WITH CHECK
+ADD CONSTRAINT FK_DevolucionVenta_Movimiento
+FOREIGN KEY (IdMovimientoInventario)
+REFERENCES dbo.MovimientoInventario (IdMovimiento)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LineaDevolucion WITH CHECK
+ADD CONSTRAINT FK_LineaDevolucion_Devolucion
+FOREIGN KEY (IdDevolucion)
+REFERENCES dbo.DevolucionVenta (IdDevolucion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.LineaDevolucion WITH CHECK
+ADD CONSTRAINT FK_LineaDevolucion_LineaVenta
+FOREIGN KEY (IdLineaVenta)
+REFERENCES dbo.LineaVenta (IdLineaVenta)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.NotaCredito WITH CHECK
+ADD CONSTRAINT FK_NotaCredito_Devolucion
+FOREIGN KEY (IdDevolucion)
+REFERENCES dbo.DevolucionVenta (IdDevolucion)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.NotaCredito WITH CHECK
+ADD CONSTRAINT FK_NotaCredito_Cuenta
+FOREIGN KEY (IdCuentaCobrar)
+REFERENCES dbo.CuentaPorCobrar (IdCuentaCobrar)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Reembolso WITH CHECK
+ADD CONSTRAINT FK_Reembolso_NotaCredito
+FOREIGN KEY (IdNotaCredito)
+REFERENCES dbo.NotaCredito (IdNotaCredito)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Reembolso WITH CHECK
+ADD CONSTRAINT FK_Reembolso_MetodoPago
+FOREIGN KEY (IdMetodoPago)
+REFERENCES dbo.MetodoPago (IdMetodoPago)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.Reembolso WITH CHECK
+ADD CONSTRAINT FK_Reembolso_Usuario
+FOREIGN KEY (IdUsuario)
+REFERENCES dbo.Usuario (IdUsuario)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.MovimientoCaja WITH CHECK
+ADD CONSTRAINT FK_MovimientoCaja_Sesion
+FOREIGN KEY (IdSesionCaja)
+REFERENCES dbo.SesionCaja (IdSesionCaja)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.MovimientoCaja WITH CHECK
+ADD CONSTRAINT FK_MovimientoCaja_Pago
+FOREIGN KEY (IdPago)
+REFERENCES dbo.Pago (IdPago)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+ALTER TABLE dbo.MovimientoCaja WITH CHECK
+ADD CONSTRAINT FK_MovimientoCaja_Reembolso
+FOREIGN KEY (IdReembolso)
+REFERENCES dbo.Reembolso (IdReembolso)
+ON UPDATE NO ACTION
+ON DELETE NO ACTION;
+GO
+
+
+
